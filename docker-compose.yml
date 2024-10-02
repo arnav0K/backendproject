@@ -1,0 +1,83 @@
+version: '3.8'
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmqctl", "status"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - backend-network
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    healthcheck:
+      test: "exit 0"  # MongoDB doesn't have a simple health check, so we keep it minimal
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - backend-network
+
+  user-service:
+    build: ./user-service
+    ports:
+      - "3001:3001"
+    depends_on:
+      - mongo
+      - rabbitmq
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/user-service
+      - RABBITMQ_URL=amqp://guest:guest@rabbitmq
+      - JWT_SECRET=your_jwt_secret
+    networks:
+      - backend-network
+
+  product-service:
+    build: ./product-service
+    ports:
+      - "3002:3002"
+    depends_on:
+      - mongo
+      - rabbitmq
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/product-service
+      - RABBITMQ_URL=amqp://guest:guest@rabbitmq
+    networks:
+      - backend-network
+
+  order-service:
+    build: ./order-service
+    ports:
+      - "3003:3003"
+    depends_on:
+      - mongo
+      - rabbitmq
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/order-service
+      - RABBITMQ_URL=amqp://guest:guest@rabbitmq
+    networks:
+      - backend-network
+
+  graphql-gateway:
+    build: ./graphql-gateway
+    ports:
+      - "4000:4000"
+    depends_on:
+      - user-service
+      - product-service
+      - order-service
+    environment:
+      - JWT_SECRET=your_jwt_secret
+    networks:
+      - backend-network
+
+networks:
+  backend-network:
+    driver: bridge

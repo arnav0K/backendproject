@@ -1,0 +1,199 @@
+{
+    "info": {
+        "name": "Backend Intern Assignment API",
+        "description": "Postman collection for testing the User, Product, and Order services along with the GraphQL Gateway.",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "User Service",
+            "item": [
+                {
+                    "name": "Register User",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"username\": \"newUser\", \"email\": \"user@example.com\", \"password\": \"securePassword\"}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:3001/users/register",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3001",
+                            "path": [
+                                "users",
+                                "register"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Login User",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"username\": \"newUser\", \"password\": \"securePassword\"}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:3001/users/login",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3001",
+                            "path": [
+                                "users",
+                                "login"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Product Service",
+            "item": [
+                {
+                    "name": "Create Product",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\": \"New Product\", \"price\": 29.99, \"inventory\": 100}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:3002/products",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3002",
+                            "path": [
+                                "products"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Order Service",
+            "item": [
+                {
+                    "name": "Place Order",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"userId\": \"user_id_here\", \"productId\": \"product_id_here\", \"quantity\": 1}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:3003/orders",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3003",
+                            "path": [
+                                "orders"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "GraphQL Gateway",
+            "item": [
+                {
+                    "name": "GraphQL Query - Get Users",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"query\": \"{ users { _id username email } }\"}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:4000/graphql",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "4000",
+                            "path": [
+                                "graphql"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "GraphQL Mutation - Register User",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"query\": \"mutation { registerUser(input: { username: \\\"newUser\\\", email: \\\"user@example.com\\\", password: \\\"securePassword\\\" }) { token message } }\"}"
+                        },
+                        "url": {
+                            "raw": "http://localhost:4000/graphql",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "4000",
+                            "path": [
+                                "graphql"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ]
+}

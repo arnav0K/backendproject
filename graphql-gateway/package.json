@@ -1,0 +1,22 @@
+{
+  "name": "graphql-gateway",
+  "version": "1.0.0",
+  "description": "GraphQL Gateway for microservices",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "express": "^4.21.0",
+    "express-graphql": "^0.12.0",
+    "graphql": "^15.9.0",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
